@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D55CB93DD498090D037EEEE /* PulseHeartRateBLEUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8862F5ABC66540F32A2E210B /* PulseHeartRateBLEUITests.swift */; };
+		2000619B7843EEAFED0548F6 /* DiagnosticNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1FC712F388C008E6B288FA /* DiagnosticNotificationManager.swift */; };
+		84AC06D87011748A56AB6282 /* HeartRateMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8E95C82A353AB20ED4FF41 /* HeartRateMeasurement.swift */; };
+		9A20B008284B413B08A66A51 /* PulseHeartRateBLEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4469C3C6D30B19A14B3BCA1 /* PulseHeartRateBLEApp.swift */; };
+		B45BFAC73CA070EA8C902225 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A767B1CC738C8B19432D1DF /* ContentView.swift */; };
+		E82FA9A49455B832885980BF /* HeartRateBluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AA37BC40CFA84442F953EE /* HeartRateBluetoothManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9A6C286AB67CE8461B38EA81 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C79F5BD3B7FEE3677A0492D0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9DBE245490968872E9E75029;
+			remoteInfo = PulseHeartRateBLE;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01CCDDA2801266BF867826F5 /* PulseHeartRateBLEUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PulseHeartRateBLEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FF6BDE670E228A627C81D6B /* PulseHeartRateBLE.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PulseHeartRateBLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		72AA37BC40CFA84442F953EE /* HeartRateBluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateBluetoothManager.swift; sourceTree = "<group>"; };
+		7A767B1CC738C8B19432D1DF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8862F5ABC66540F32A2E210B /* PulseHeartRateBLEUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseHeartRateBLEUITests.swift; sourceTree = "<group>"; };
+		BC8E95C82A353AB20ED4FF41 /* HeartRateMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMeasurement.swift; sourceTree = "<group>"; };
+		EF1FC712F388C008E6B288FA /* DiagnosticNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticNotificationManager.swift; sourceTree = "<group>"; };
+		F4469C3C6D30B19A14B3BCA1 /* PulseHeartRateBLEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseHeartRateBLEApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1BA9B907DACD675DCC2AA32F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3FF6BDE670E228A627C81D6B /* PulseHeartRateBLE.app */,
+				01CCDDA2801266BF867826F5 /* PulseHeartRateBLEUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F9388B9FE82467248D76C3C /* PulseHeartRateBLEUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8862F5ABC66540F32A2E210B /* PulseHeartRateBLEUITests.swift */,
+			);
+			name = PulseHeartRateBLEUITests;
+			path = Tests/PulseHeartRateBLEUITests;
+			sourceTree = "<group>";
+		};
+		56C908A8097F35F075EF16A1 = {
+			isa = PBXGroup;
+			children = (
+				FE001319812DEE68A3023B44 /* App */,
+				9621B531C8804943ED4ECE0D /* HeartRateParser */,
+				1F9388B9FE82467248D76C3C /* PulseHeartRateBLEUITests */,
+				1BA9B907DACD675DCC2AA32F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9621B531C8804943ED4ECE0D /* HeartRateParser */ = {
+			isa = PBXGroup;
+			children = (
+				BC8E95C82A353AB20ED4FF41 /* HeartRateMeasurement.swift */,
+			);
+			name = HeartRateParser;
+			path = Sources/HeartRateParser;
+			sourceTree = "<group>";
+		};
+		FE001319812DEE68A3023B44 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7A767B1CC738C8B19432D1DF /* ContentView.swift */,
+				EF1FC712F388C008E6B288FA /* DiagnosticNotificationManager.swift */,
+				72AA37BC40CFA84442F953EE /* HeartRateBluetoothManager.swift */,
+				F4469C3C6D30B19A14B3BCA1 /* PulseHeartRateBLEApp.swift */,
+			);
+			name = App;
+			path = Sources/App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9DBE245490968872E9E75029 /* PulseHeartRateBLE */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D61C83715A02E2636FD7146D /* Build configuration list for PBXNativeTarget "PulseHeartRateBLE" */;
+			buildPhases = (
+				49E8C8F795F9362700C8A472 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PulseHeartRateBLE;
+			packageProductDependencies = (
+			);
+			productName = PulseHeartRateBLE;
+			productReference = 3FF6BDE670E228A627C81D6B /* PulseHeartRateBLE.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C9D0ECBD18A87F829DFC1436 /* PulseHeartRateBLEUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 244DE4C15805D3D887D6EEA4 /* Build configuration list for PBXNativeTarget "PulseHeartRateBLEUITests" */;
+			buildPhases = (
+				04473AD3943DB786BD9B20C4 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				63149B4262246E1F8BC639AB /* PBXTargetDependency */,
+			);
+			name = PulseHeartRateBLEUITests;
+			packageProductDependencies = (
+			);
+			productName = PulseHeartRateBLEUITests;
+			productReference = 01CCDDA2801266BF867826F5 /* PulseHeartRateBLEUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C79F5BD3B7FEE3677A0492D0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					9DBE245490968872E9E75029 = {
+						DevelopmentTeam = 6K28WEXX78;
+						ProvisioningStyle = Automatic;
+					};
+					C9D0ECBD18A87F829DFC1436 = {
+						DevelopmentTeam = 6K28WEXX78;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 9DBE245490968872E9E75029;
+					};
+				};
+			};
+			buildConfigurationList = 213C267AC9BFDDFC77D9FD29 /* Build configuration list for PBXProject "PulseHeartRateBLE" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 56C908A8097F35F075EF16A1;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 1BA9B907DACD675DCC2AA32F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9DBE245490968872E9E75029 /* PulseHeartRateBLE */,
+				C9D0ECBD18A87F829DFC1436 /* PulseHeartRateBLEUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04473AD3943DB786BD9B20C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D55CB93DD498090D037EEEE /* PulseHeartRateBLEUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49E8C8F795F9362700C8A472 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B45BFAC73CA070EA8C902225 /* ContentView.swift in Sources */,
+				2000619B7843EEAFED0548F6 /* DiagnosticNotificationManager.swift in Sources */,
+				E82FA9A49455B832885980BF /* HeartRateBluetoothManager.swift in Sources */,
+				84AC06D87011748A56AB6282 /* HeartRateMeasurement.swift in Sources */,
+				9A20B008284B413B08A66A51 /* PulseHeartRateBLEApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		63149B4262246E1F8BC639AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9DBE245490968872E9E75029 /* PulseHeartRateBLE */;
+			targetProxy = 9A6C286AB67CE8461B38EA81 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		021D2FFF431FB3425D9EB74D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		300F6BB51EE2BC4DC4F4B137 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6K28WEXX78;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.laris.PulseHeartRateBLEUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PulseHeartRateBLE;
+			};
+			name = Debug;
+		};
+		43CFDB24AFA8944664BABA60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6K28WEXX78;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.laris.PulseHeartRateBLE;
+				PRODUCT_NAME = PulseHeartRateBLE;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		44F9397D43E55D1BF7694717 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		71EDC26334B437451BF6B9A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6K28WEXX78;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.laris.PulseHeartRateBLEUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PulseHeartRateBLE;
+			};
+			name = Release;
+		};
+		B836812FCC1C35826A7311AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6K28WEXX78;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.laris.PulseHeartRateBLE;
+				PRODUCT_NAME = PulseHeartRateBLE;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		213C267AC9BFDDFC77D9FD29 /* Build configuration list for PBXProject "PulseHeartRateBLE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44F9397D43E55D1BF7694717 /* Debug */,
+				021D2FFF431FB3425D9EB74D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		244DE4C15805D3D887D6EEA4 /* Build configuration list for PBXNativeTarget "PulseHeartRateBLEUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				300F6BB51EE2BC4DC4F4B137 /* Debug */,
+				71EDC26334B437451BF6B9A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D61C83715A02E2636FD7146D /* Build configuration list for PBXNativeTarget "PulseHeartRateBLE" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B836812FCC1C35826A7311AA /* Debug */,
+				43CFDB24AFA8944664BABA60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C79F5BD3B7FEE3677A0492D0 /* Project object */;
+}

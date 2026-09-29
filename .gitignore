@@ -1,0 +1,12 @@
+**/.gradle/
+**/build/
+**/.build/
+**/DerivedData/
+**/local.properties
+**/xcuserdata/
+**/*.xcuserstate
+**/.DS_Store
+.evidence/
+*.mobileprovision
+*.keystore
+*.jks
