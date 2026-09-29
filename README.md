@@ -27,19 +27,24 @@ The dated hardware results and unverified steps are in
   separate phone/watch integration, not a write to the heart-rate characteristic.
 - No health-data uploads, network permission on Android, cloud service or account
   in either prototype. No session recording/CSV yet; that is a later issue gate.
-- Actual live-heart-rate connection and watch notification delivery require separate
+- Live-heart-rate connection and watch notification delivery require separate
   hardware proof; a successful build, parser test or local notification alone is
-  not proof of either.
+  not proof of either. Both Apple routes were verified separately on the iPad.
 
 The 2026-09-29 iPad test did complete the notification route end to end: the app's
 delivered-notification record passed, and the user explicitly confirmed that the
 physical Garmin displayed **Pulse diagnostic**. This happened because the watch was
 connected to that iPad and mirrored its notification through the companion bridge.
-It does not yet prove the separate live-heart-rate route.
+That notification result does not by itself prove the separate live-heart-rate route.
 
-The later physical-iPad BLE smoke test passed the permission and scan flow, but
-found zero `0x180D` sensors. It therefore proves the app can run the scan, not that
-this watch advertised or delivered live heart rate in the tested state.
+An earlier physical-iPad BLE smoke test passed the permission and scan flow but found
+zero `0x180D` sensors. After the user placed the watch in **Virtual Run**, the opt-in
+hardware test found the named Forerunner/FR245 sensor, selected it, subscribed to
+`0x2A37`, received at least ten valid measurement callbacks, disconnected, verified
+that state/count cleared, and completed a start/stop rescan. No raw health value was
+exported; the test did not start an activity timer or change pairing. The candidate
+was identified by its advertised name and HRS service in this controlled test, not
+by independent device authentication.
 
 ## Apple notification test
 
@@ -92,9 +97,9 @@ do not assume the legacy Heart Rate widget broadcast is BLE:
    timer yet.
 3. In Pulse HR Diagnostic, run the filtered `0x180D` scan and select the watch if
    it appears.
-4. Live HR remains pending until discovery, GATT subscription and a measurement
-   are observed. If a timer is later started by user choice, finish the test with
-   **STOP → Discard → Yes** to avoid saving a test activity.
+4. This route passed on the physical iPad with at least ten valid callbacks plus
+   disconnect/clear/rescan verification. If a timer is later started by user choice,
+   finish the test with **STOP → Discard → Yes** to avoid saving a test activity.
 
 See Garmin's [Virtual Run pairing instructions](https://www8.garmin.com/manuals/webhelp/forerunner245/EN-US/GUID-9F45EF2C-D6D5-4583-B4C6-A386743B650A.html)
 and [activity stop/discard options](https://www8.garmin.com/manuals/webhelp/forerunner245/EN-US/GUID-996CC115-E86F-4FA9-8C13-1405A9A7485F.html).

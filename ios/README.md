@@ -76,6 +76,18 @@ xcodebuild test -project PulseHeartRateBLE.xcodeproj -scheme PulseHeartRateBLE \
   -collect-test-diagnostics never
 ```
 
+This opt-in test passed on the physical iPad at 16:21:59 Bangkok time on
+2026-09-29: one test, zero failures, 23.988 seconds. With the user-confirmed watch
+in Virtual Run, it found a uniquely named Forerunner/FR245 `0x180D` result, selected
+it, confirmed `0x2A37` subscription, received at least ten valid measurement
+callbacks, disconnected and verified cleared state/count, then completed a
+start/stop rescan in Idle with a zero measurement count. The privacy-safe attachment
+contains only service/subscription booleans, callback count and
+`healthValuesExported=false`; it contains no BPM, energy or RR value.
+The candidate match uses advertised name plus HRS service and is not independent
+device authentication. After XCTest terminated its test launch, the signed app also
+relaunched normally through `devicectl`.
+
 ## Notification boundary
 
 The notification diagnostic schedules a generic local notification and includes no
@@ -92,9 +104,10 @@ Together those observations verify this one end-to-end iPad notification run.
 Garmin's published compatibility page lists iPhone; do not generalize the successful
 run into a promise of full iPad compatibility.
 
-The physical-iPad BLE smoke test also passed after its system-prompt handler was
-stabilized. Its privacy-safe result was `sensorCount=0` and
-`containsForerunner=false`; no HRS connection or live measurement is claimed.
+An earlier physical-iPad BLE smoke test passed after its system-prompt handler was
+stabilized but found zero sensors. The later opt-in Virtual Run test above supplies
+the actual iPad HRS connection and live-callback proof; the earlier zero-result run
+remains useful dated history, not the current outcome.
 
 ## Pairing boundary
 
@@ -113,7 +126,8 @@ For the Forerunner 245 Music HRS test, select **START → Virtual Run** on the w
 and leave its compatible-app pairing screen open before starting any activity timer.
 Then run this app's filtered `0x180D` scan. The legacy Heart Rate widget broadcast
 instructions describe ANT+, so they are not evidence that the same screen advertises
-BLE HRS. Live HR remains unverified. If the user later starts the activity timer,
+BLE HRS. This Virtual Run route is now verified on the physical iPad. The test did
+not start a timer or change pairing. If the user later starts the activity timer,
 **STOP → Discard → Yes** exits without saving the test activity. See Garmin's
 [Virtual Run manual](https://www8.garmin.com/manuals/webhelp/forerunner245/EN-US/GUID-9F45EF2C-D6D5-4583-B4C6-A386743B650A.html)
 and [stop/discard manual](https://www8.garmin.com/manuals/webhelp/forerunner245/EN-US/GUID-996CC115-E86F-4FA9-8C13-1405A9A7485F.html).

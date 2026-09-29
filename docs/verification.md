@@ -24,7 +24,7 @@ out of Git. Health data stays on the receiving device.
 | Garmin Connect on A14 | No Garmin package found in the installed-package list for the inspected user. Do not infer that another device/user is unpaired. |
 | Android shell notification | An explicitly synthetic notification was posted and its own NotificationRecord was verified. The shell-origin tag is `link`. This proves Android posting only, not Garmin delivery. |
 | Android app runtime | Initial debug APK installed and launched; Nearby Devices permission accepted; bounded filtered scan completed with no `0x180D` devices found. No claim that Garmin lacks support—range/mode/advertising remain unresolved. Updated APK is build/lint/test verified but not reinstalled after ADB went offline. |
-| iPad app runtime | Signed app and UI-test runner launched successfully. The notification/settings run completed two tests with zero failures; the exact own-app notification permission prompt was accepted by the targeted SpringBoard alert handler. |
+| iPad app runtime | Signed app and UI-test runner launched successfully. The notification/settings run completed two tests with zero failures; the exact own-app notification permission prompt was accepted by the targeted SpringBoard alert handler. After the live-HR test, the signed app also relaunched normally through `devicectl`. |
 | iPhone signing | Existing profile did not include iPhone. User explicitly approved registering iPhone and retaining Garmin pairing; Xcode provisioning then passed that gate. UI-test target needed generated Info.plist for code signing (fixed). |
 | iPhone app runtime | Signed app and test runner launched. Initial test failed at a SpringBoard permission prompt (`Not requested`). Retest passed on physical iPhone at 13:01 Bangkok time: one UI test, zero failures, and the app's own delivered-notification record contained the diagnostic request. No system prompt was present in the successful run, so fresh-install permission-handler execution is not yet proven. |
 | iPhone notification delivery | **Verified on phone:** `Pulse diagnostic`, generic body without heart-rate data, five-second local trigger. This does not prove Garmin display. |
@@ -34,12 +34,12 @@ out of Git. Health data stays on the receiving device.
 | Watch Smart Notifications | User confirmed Status On and Not During Activity notifications enabled. This is user-reported watch state, not an app-verified setting. |
 | Bluetooth forwarding-settings probe | Initial navigation probe safely skipped. Corrected read-only navigation reached iPhone Bluetooth: **two saved Forerunner 245 Music rows both explicitly report Not Connected**. No row was tapped, deleted or re-paired because the saved entries are indistinguishable. The iPhone's Share System Notifications value was not inspected; the later iPad-to-watch delivery nevertheless worked empirically. Private local row diagnosis is in `iphone-garmin-row-diagnosis.xcresult`; its temporary row-text logging was removed from normal tests. |
 | Connection recovery attempt | Launched the already-installed Garmin Connect app to allow its existing connection logic to run. Launch succeeded; this alone does not prove reconnection. No re-pairing or account change was performed. |
-| Standard HR service | No live Garmin measurement verified on either new mobile app. |
+| Standard HR service | **Passed on iPad; Android remains unverified.** With the watch in Virtual Run, the iOS app found the named Forerunner/FR245 `0x180D` result, explicitly selected it, subscribed to `0x2A37` and received at least ten valid callbacks. No raw health value was exported. The candidate match used advertised name/service; it was not independent device authentication. |
 | iPad notification delivery | **Verified on iPad:** local/background diagnostic delivery and own notification settings Authorized, Notification Center/Alerts/Lock Screen Enabled, previews Always. The retained test artifact used an older `DeliveredOnPhone` key, but the physical target was the iPad; current source uses device-neutral wording. |
 | Watch notification delivery | **Passed through iPad.** The iPhone test reached the phone but the user reported nothing on Garmin; both inspected iPhone watch entries were Not Connected. The later iPad delivered-record test passed, and the user explicitly confirmed that the physical Garmin watch displayed **Pulse diagnostic**. This verifies one end-to-end synthetic notification without health data. |
-| iPad live-HR scan | **Scan flow passed; sensor connection did not.** The first UI-test attempt stopped at the Bluetooth permission prompt due to an XCTest alert-query mismatch. After the handler was stabilized, the physical-iPad test passed with privacy-safe output `scanStatus=Idle`, `sensorCount=0`, `containsForerunner=false`. This verifies permission and bounded scanning, but not watch discovery, GATT connection or live HR. |
-| Model-specific BLE mode | Pending hardware retest. Forerunner 245 documentation routes compatible third-party app heart-rate transmission through **START → Virtual Run**. The next test should leave the watch on its pairing screen, before the activity timer, while the iPad runs the filtered `0x180D` scan. Do not treat the legacy HR-widget ANT+ broadcast instructions as BLE proof. |
-| Opt-in live-HR integration attempt | At 13:43 Bangkok time, the real-iPad test scanned successfully but failed at discovery: **No Garmin advertising the standard Heart Rate Service was found.** Connection, subscription, ten-update and disconnect/rescan assertions were not reached. Local evidence: `ipad-real-hr-attempt1.log` / `.xcresult`. The watch's Virtual Run pairing screen has not yet been confirmed ready; do not retry repeatedly without a watch-state change. |
+| Earlier iPad live-HR scans | The first UI-test stopped at the Bluetooth permission prompt due to an XCTest alert-query mismatch. After the handler was stabilized, a scan-flow test passed but found zero sensors. At 13:43, opt-in attempt 1 also found no Garmin advertising `0x180D`, so connection assertions were not reached. These are preserved as dated pre-Virtual-Run results, not the current outcome. |
+| Model-specific BLE mode | **Confirmed and passed.** The user physically confirmed **START → Virtual Run** on the Forerunner 245 Music. Do not treat the legacy HR-widget ANT+ broadcast instructions as BLE proof. The successful app test did not start an activity timer or change pairing. |
+| Opt-in live-HR integration attempt 2 | **Passed at 16:21:59 Bangkok time, 2026-09-29.** `testReceiveTenGarminMeasurementsThenDisconnectAndRescan`: one test, zero failures, 23.988 seconds. It found the only result matching the Forerunner/FR245 name predicate and HRS service, selected it, confirmed `0x2A37` subscription, received at least ten valid callbacks, disconnected and verified state/count cleared, then completed start/stop rescan at Idle with a zero measurement count. Privacy-safe evidence: `standardHeartRateService=true`, `measurementCharacteristicSubscribed=true`, `validMeasurementUpdates=10`, `healthValuesExported=false`. Local artifacts: `ipad-real-hr-attempt2.log` / `.xcresult`. |
 
 ## Notification route is not the HR route
 
@@ -58,7 +58,8 @@ On iOS/iPadOS, a local notification proves only that device posted it. The relev
 forwarding test must originate on the Apple device currently connected to the watch.
 The 2026-09-29 iPad test plus the user's explicit physical-watch observation proves
 one end-to-end diagnostic notification. It does not establish general Garmin iPad
-compatibility or the separate live-heart-rate connection.
+compatibility. The separate Virtual Run test below independently verifies this app's
+iPad live-heart-rate connection.
 
 ## Primary references
 
@@ -78,8 +79,8 @@ compatibility or the separate live-heart-rate connection.
 ## Scope gates
 
 The user approved trying both diagnostic apps after M0. Session recording/CSV and
-publication remain later issue gates, not completed by these prototypes. No cloud,
-store publication, account creation, push to main, or merge is part of this test.
+publication and PR creation remain later, unapproved issue gates. No cloud, store
+publication, account creation, push to main, merge or PR is part of this test.
 
 ## Verification commands
 
@@ -93,6 +94,10 @@ store publication, account creation, push to main, or merge is part of this test
   uses the device-neutral name `testBackgroundNotificationDeliveredOnDevice`; its
   behavior is unchanged. XCTest verifies the app's delivered record; the user's
   explicit observation separately verifies display on the Garmin.
+- Physical-iPad live-HR artifact:
+  `testReceiveTenGarminMeasurementsThenDisconnectAndRescan` passed with one test,
+  zero failures in 23.988 seconds. It covers named-sensor selection, `0x2A37`
+  subscription, ten valid callbacks, disconnect/clear and start/stop rescan.
 
 Build/test logs and device result bundles are private, uncommitted local evidence
 under ignored `.evidence/`. Relevant artifacts include `android-verification.log`,
@@ -102,6 +107,9 @@ under ignored `.evidence/`. Relevant artifacts include `android-verification.log
 the ledger records their outcomes without exporting device identifiers or readings.
 The successful iPad scan-flow artifact is `ipad-hr-scan-stable-prompt.log` with its
 local `.xcresult`; it contains no BPM or RR value.
+The successful live-HR artifact is `ipad-real-hr-attempt2.log` / `.xcresult`; its
+exported privacy-safe proof records service/subscription booleans, callback count 10
+and `healthValuesExported=false`, with no raw measurement.
 
 ## Easiest route, after user clarification
 
@@ -110,6 +118,10 @@ inspect using ADB. Apple device testing incurred provisioning, signing, unlock a
 system-alert overhead. For **this user's notification goal**, use whichever Apple
 device is actually connected to the watch; the latest reported companion is the
 iPad, while the inspected iPhone entries were Not Connected.
+
+For live HR, the physical iPad/Virtual Run route is the only route now verified end
+to end. Android remains convenient for ADB/logcat inspection, but its real Garmin
+HRS connection was not verified in this session.
 
 The installed app does not require a Mac or USB cable to run. Optional wireless
 Xcode debugging needs prior pairing and suitable same-network connectivity; that
@@ -145,7 +157,8 @@ showed **Pulse diagnostic**, completing the end-to-end notification evidence.
 ## What direct pairing means here
 
 The prototype can act as a BLE central for the standard Heart Rate Service when
-the watch broadcasts it. That is independent of Garmin Connect onboarding and of
+the watch broadcasts it; the iPad Virtual Run test verified this path through ten
+valid callbacks plus disconnect/clear/rescan. That is independent of Garmin Connect onboarding and of
 the companion relationship that forwards smart notifications. There is no public,
 general Garmin Connect replacement pairing flow implemented here. A Connect IQ
 watch/companion app is a separate architecture and still uses Garmin Connect Mobile
