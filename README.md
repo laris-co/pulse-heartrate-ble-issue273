@@ -4,6 +4,12 @@ Small native Android and iOS/iPadOS prototypes, built by Oracle AI for Nat.
 Tracking: [Pulse #273](https://github.com/laris-co/pulse-oracle/issues/273) and
 [Nexus #11](https://github.com/laris-co/nexus-oracle/issues/11).
 
+## New pulse-only app
+
+[**Pulse**](pulse/README.md) is a separate native iPhone/iPad app combining the
+chosen animated ribbon sculpture and last-minute trend. It has its own bundle ID
+and no notification/debug dashboard; the original diagnostic apps remain available.
+
 ## Which app is easiest?
 
 **Use the Apple device that is actually connected to the watch.** The latest

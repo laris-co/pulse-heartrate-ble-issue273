@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-29T17:55:00+07:00",
+  "title": "Design System: Pulse",
+  "extensions": {
+    "colorMeta": {
+      "background": {
+        "role": "neutral",
+        "displayName": "Lavender Ground"
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Ink Plum"
+      },
+      "secondary": {
+        "role": "neutral",
+        "displayName": "Muted Plum"
+      },
+      "action": {
+        "role": "primary",
+        "displayName": "Action Plum"
+      },
+      "control-surface": {
+        "role": "neutral",
+        "displayName": "Control Lavender"
+      },
+      "separator": {
+        "role": "neutral",
+        "displayName": "Soft Separator"
+      },
+      "chart-line": {
+        "role": "primary",
+        "displayName": "Chart Plum"
+      },
+      "ribbon-plum": {
+        "role": "tertiary",
+        "displayName": "Ribbon Plum"
+      },
+      "ribbon-lavender": {
+        "role": "secondary",
+        "displayName": "Ribbon Lavender"
+      },
+      "ribbon-pink": {
+        "role": "secondary",
+        "displayName": "Ribbon Pink"
+      },
+      "heart": {
+        "role": "secondary",
+        "displayName": "Heart Cherry"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Pulse Display",
+        "purpose": "Current BPM only."
+      },
+      "title": {
+        "displayName": "Section Title",
+        "purpose": "Trend heading and prominent values."
+      },
+      "headline": {
+        "displayName": "Action and Status",
+        "purpose": "Actions and short state labels."
+      },
+      "body": {
+        "displayName": "Native Body",
+        "purpose": "Explanatory sheet and connection copy."
+      },
+      "label": {
+        "displayName": "Supporting Label",
+        "purpose": "Freshness, demo disclosure, and axes."
+      }
+    },
+    "darkAppearance": {
+      "colors": {
+        "background": "#190C20",
+        "foreground": "#FAEBFA",
+        "secondary": "#DABCDF",
+        "action": "#DAA6E8",
+        "control-surface": "#35213D",
+        "separator": "#604865",
+        "chart-line": "#E5A0F0",
+        "ribbon-plum": "#845498",
+        "ribbon-plum-highlight": "#A975BD",
+        "ribbon-plum-shadow": "#6B3C7B",
+        "ribbon-lavender": "#9B68D1",
+        "ribbon-lavender-highlight": "#C19AE8",
+        "ribbon-lavender-shadow": "#7F4FAE",
+        "ribbon-pink": "#EEADD9",
+        "ribbon-pink-highlight": "#F8C9E9",
+        "ribbon-pink-shadow": "#C875B0",
+        "ribbon-shadow": "#050207",
+        "heart": "#FF3366"
+      }
+    },
+    "shadows": [
+      {
+        "name": "heart-ground",
+        "value": "RibbonShadow at 14% light / 28% dark; 14pt blur; y-offset 0.33 × field height",
+        "purpose": "Grounds the mesh without elevating surrounding data or controls."
+      }
+    ],
+    "motion": [
+      {
+        "name": "heart-clock",
+        "value": "Up to 30 updates/second; phase advances BPM/60 cycles per second",
+        "purpose": "Continuous-phase nonuniform squash/rebound visualizes rate, not detected beat timing."
+      },
+      {
+        "name": "heart-freeze",
+        "value": "Stop autonomous motion when paused, stale, missing BPM, Reduce Motion, private, offscreen, or inactive",
+        "purpose": "Never imply current pulse through decorative autonomous motion."
+      },
+      {
+        "name": "heart-drag",
+        "value": "Bounded yaw/pitch geometry rotation; disabled for Reduce Motion",
+        "purpose": "Reveals real volume without changing pulse data."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-split",
+        "value": "width >= 760pt and width > height * 1.04"
+      }
+    ],
+    "assets": [
+      {
+        "name": "App Icon",
+        "path": "pulse/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
+        "format": "PNG",
+        "size": "1024×1024",
+        "alpha": false,
+        "description": "Interwoven plum, lavender, and pink ribbons on a pale lavender ground, without text."
+      }
+    ],
+    "nativeHeart": {
+      "source": "pulse/Sources/PulseSculpture.swift",
+      "geometry": "PulseHeartMesh; closed front/back mesh with smooth normals",
+      "material": "SceneKit physicallyBased; roughness 0.22; metalness 0.08; opaque adaptive PulseHeart diffuse",
+      "lighting": "White key180, pink rim130, lavender fill35, ambient55",
+      "rendering": "4x antialiasing; on-demand SCNView; main-thread updates; no renderer delegate",
+      "fullscreen": "Shared PulseStore and pause binding; 44pt close/pause; portrait stack and landscape split; scrollable at accessibility sizes",
+      "demoStatus": "Demo · Sample data / Sample signal; never an ECG claim"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Watch Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The full-width 52pt capsule that opens watch selection.",
+      "html": "<button class=\"ds-primary-action\">Choose watch <span aria-hidden=\"true\">›</span></button>",
+      "css": ".ds-primary-action { width: 100%; min-height: 52px; padding: 0 24px; border: 0; border-radius: 999px; background: #4B2459; color: #F7E8F8; font: 600 17px system-ui; display: flex; align-items: center; justify-content: center; gap: 8px; } .ds-primary-action:hover { filter: brightness(1.08); } .ds-primary-action:active { transform: scale(0.99); } .ds-primary-action:focus-visible { outline: 3px solid #6D0B73; outline-offset: 3px; }"
+    },
+    {
+      "name": "Motion Control",
+      "kind": "button",
+      "refersTo": "button-icon",
+      "description": "A 44pt pause/play control shared by the dashboard and fullscreen heart; readings continue while paused.",
+      "html": "<button class=\"ds-motion-control\" aria-label=\"Pause heart animation\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M7 5h4v14H7zm6 0h4v14h-4z\"/></svg></button>",
+      "css": ".ds-motion-control { width: 44px; height: 44px; border: 0; border-radius: 999px; background: #ECDAF5; color: #27082A; display: grid; place-items: center; } .ds-motion-control svg { width: 18px; height: 18px; fill: currentColor; } .ds-motion-control:hover { filter: brightness(0.97); } .ds-motion-control:active { transform: scale(0.96); } .ds-motion-control:focus-visible { outline: 3px solid #6D0B73; outline-offset: 2px; }"
+    },
+    {
+      "name": "Current Pulse Reading",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The dominant monospaced pulse value with a smaller baseline unit.",
+      "html": "<div class=\"ds-pulse-reading\"><strong>72</strong><span>BPM</span></div>",
+      "css": ".ds-pulse-reading { color: #27082A; display: flex; align-items: baseline; justify-content: center; gap: 9px; font-family: system-ui; } .ds-pulse-reading strong { font-size: 88px; line-height: 1; font-weight: 700; font-variant-numeric: tabular-nums; } .ds-pulse-reading span { font-size: 22px; font-weight: 500; }"
+    },
+    {
+      "name": "Demo Disclosure",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The explicit label that separates synthetic sample data from a live sensor.",
+      "html": "<div class=\"ds-demo-label\">Demo · Sample data</div>",
+      "css": ".ds-demo-label { color: #5D3F67; font: 600 15px system-ui; text-align: center; }"
+    },
+    {
+      "name": "Recent Range",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Two recent extrema separated by one quiet vertical divider.",
+      "html": "<div class=\"ds-range\"><div><strong>68</strong><span>low</span></div><i></i><div><strong>80</strong><span>high</span></div></div>",
+      "css": ".ds-range { color: #27082A; display: grid; grid-template-columns: 1fr 1px 1fr; align-items: center; gap: 24px; font-family: system-ui; } .ds-range div { display: flex; justify-content: center; align-items: baseline; gap: 8px; } .ds-range strong { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; } .ds-range span { color: #5D3F67; font-size: 17px; font-weight: 600; } .ds-range i { width: 1px; height: 40px; background: #B59ABE; }"
+    },
+    {
+      "name": "Sensor Row",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "A native list-style sensor choice with a watch symbol and 44pt minimum target.",
+      "html": "<button class=\"ds-sensor-row\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><rect x=\"7\" y=\"5\" width=\"10\" height=\"14\" rx=\"3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M10 2h4l1 3H9zm0 20h4l1-3H9z\" fill=\"currentColor\"/></svg><span>Heart-rate sensor</span></button>",
+      "css": ".ds-sensor-row { width: 100%; min-height: 44px; padding: 6px 0; border: 0; background: transparent; color: #4B2459; display: flex; align-items: center; gap: 10px; font: 400 17px system-ui; text-align: left; } .ds-sensor-row svg { width: 22px; height: 22px; flex: 0 0 auto; } .ds-sensor-row:hover { color: #6D0B73; } .ds-sensor-row:active { opacity: 0.72; } .ds-sensor-row:focus-visible { outline: 3px solid #6D0B73; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Kinetic Pulse Instrument",
+    "overview": "“Kinetic Pulse Instrument” is descriptive shorthand for the implemented visual system, not a user quotation. The interface treats pulse as one measured subject: a glossy, real 3D cartoon heart occupies the expressive field, while a large numeric reading and one-minute trend keep the data legible and honest.\n\nThe system is native, spacious, and focused rather than diagnostic. Pale lavender and plum establish the light appearance; asset-catalog counterparts preserve the same hierarchy in Dark Mode. Motion remains subordinate to fresh data and stops for stale data, pause, Reduce Motion, and privacy-safe presentation.",
+    "keyCharacteristics": [
+      "One kinetic sculpture, one current reading, and one recent trend.",
+      "Adaptive plum, lavender, and pink assets with native SwiftUI controls.",
+      "Compact portrait stacking and a separate iPad landscape split.",
+      "Explicit demo, waiting, stale, missing-data, and privacy-safe states."
+    ],
+    "rules": [
+      {
+        "name": "The Adaptive Palette Rule",
+        "body": "Use the named asset colors rather than hard-coded view colors so light and dark appearances change together.",
+        "section": "colors"
+      },
+      {
+        "name": "The Reading First Rule",
+        "body": "Reserve the display scale for the current pulse value; all explanations remain in Dynamic Type styles.",
+        "section": "typography"
+      },
+      {
+        "name": "The Sculpture Owns Depth Rule",
+        "body": "Keep surrounding controls and data surfaces visually flat so the kinetic field remains the only dimensional object.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Honest Motion Rule",
+        "body": "Animate only from a fresh visible pulse; never use the sculpture to imply ECG timing or a current value when the signal is stale.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do keep the sculpture, current reading, trend, range, and primary watch action in one clear hierarchy.",
+      "Do use named adaptive color assets, Dynamic Type, SF Symbols, 44pt controls, and native sheets.",
+      "Do preserve missing-data gaps and label synthetic demo data explicitly.",
+      "Do freeze motion for pause, stale data, Reduce Motion, and privacy-safe presentation."
+    ],
+    "donts": [
+      "Don't turn the surface into a diagnostic dashboard, card grid, or notification-control panel.",
+      "Don't draw ECG spikes or describe the sculpture as exact heartbeat timing.",
+      "Don't display a stale or privacy-redacted BPM as current.",
+      "Don't add decorative depth outside the heart sculpture."
+    ]
+  }
+}
