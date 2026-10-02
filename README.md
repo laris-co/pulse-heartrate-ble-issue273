@@ -139,3 +139,7 @@ Device signing requires a valid profile containing the target device.
 [docs/history.md](docs/history.md) records ten Relic search passes and distinguishes
 earlier ANCS firmware/macOS scanners from these new mobile prototypes. FleetPad
 and JSONL Observatory are unrelated to the Garmin implementation.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
