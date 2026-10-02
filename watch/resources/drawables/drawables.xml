@@ -1,10 +1,11 @@
 <drawables>
     <bitmap id="LauncherIcon" filename="launcher_icon.png"/>
-    <!-- Six compiler-scaled, device-palette sprites; percentages are source-relative. -->
-    <bitmap id="Heart0" filename="cartoon_heart.png" scaleX="7.336523%" scaleY="7.496013%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
-    <bitmap id="Heart1" filename="cartoon_heart.png" scaleX="7.496013%" scaleY="7.416268%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
-    <bitmap id="Heart2" filename="cartoon_heart.png" scaleX="7.655502%" scaleY="7.336523%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
-    <bitmap id="Heart3" filename="cartoon_heart.png" scaleX="7.814992%" scaleY="7.256778%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
-    <bitmap id="Heart4" filename="cartoon_heart.png" scaleX="7.974482%" scaleY="7.177033%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
-    <bitmap id="Heart5" filename="cartoon_heart.png" scaleX="8.133971%" scaleY="7.097289%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
+    <!-- Six compiler-scaled, device-palette sprites; percentages are source-relative.
+         Source: oracle_cat.png (Oracle Voice cat, 2026-10-02); cartoon_heart.png is the previous sprite. -->
+    <bitmap id="Heart0" filename="oracle_cat.png" scaleX="7.336523%" scaleY="7.496013%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
+    <bitmap id="Heart1" filename="oracle_cat.png" scaleX="7.496013%" scaleY="7.416268%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
+    <bitmap id="Heart2" filename="oracle_cat.png" scaleX="7.655502%" scaleY="7.336523%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
+    <bitmap id="Heart3" filename="oracle_cat.png" scaleX="7.814992%" scaleY="7.256778%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
+    <bitmap id="Heart4" filename="oracle_cat.png" scaleX="7.974482%" scaleY="7.177033%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
+    <bitmap id="Heart5" filename="oracle_cat.png" scaleX="8.133971%" scaleY="7.097289%" scaleRelativeTo="image" automaticPalette="true" dithering="none" compress="true"/>
 </drawables>

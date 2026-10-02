@@ -1,8 +1,21 @@
 # Pulse Link for Garmin Forerunner 245 Music
 
-Pulse Link is a foreground Connect IQ watch-app that combines a local clock, the latest fresh heart-rate reading, and a rounded cartoon heart. It reads the watch's configured heart-rate source without changing sensor pairing. It is not a system watch face and does not run as an all-day background display.
+Pulse Link is a foreground Connect IQ watch-app that combines a local clock, the latest fresh heart-rate reading, and the Oracle Voice cat in a glowing orb that beats with your pulse. It reads the watch's configured heart-rate source without changing sensor pairing. It is not a system watch face and does not run as an all-day background display.
 
 The heart uses six pre-rendered, compiler-scaled sprites to provide 3D-style shading on the watch's limited palette. The user requested this cartoon form instead of an anatomical heart. It is not a real-time 3D mesh, an ECG, or a visualization of individually measured beats.
+
+## The cat sprite
+
+Since 2026-10-02 the pulse sprite is the Oracle Voice app icon (a Siamese cat in a glowing orb),
+cut out by [`tools/make_cat_assets.py`](tools/make_cat_assets.py) into `resources/drawables/oracle_cat.png`
+(1254 x 1254, the same canvas as the old heart so the six scale percentages in `drawables.xml` keep the
+on-watch size at about 92 px) and a 40 x 40 `launcher_icon.png`. To go back to the cartoon heart,
+point the six `Heart0`–`Heart5` bitmaps in `drawables.xml` at `cartoon_heart.png` again; that file is
+kept in the repo.
+
+```sh
+uv run --with pillow python watch/tools/make_cat_assets.py <path to the Oracle Voice AppIcon.png>
+```
 
 ## Clock and controls
 
