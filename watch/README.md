@@ -1,8 +1,21 @@
 # Pulse Link for Garmin Forerunner 245 Music
 
-Pulse Link is a foreground Connect IQ watch-app that combines a local clock, the latest fresh heart-rate reading, and a rounded cartoon heart. It reads the watch's configured heart-rate source without changing sensor pairing. It is not a system watch face and does not run as an all-day background display.
+Pulse Link is a foreground Connect IQ watch-app that combines a local clock, the latest fresh heart-rate reading, and the Oracle Voice cat in a glowing orb that beats with your pulse. It reads the watch's configured heart-rate source without changing sensor pairing. It is not a system watch face and does not run as an all-day background display.
 
 The heart uses six pre-rendered, compiler-scaled sprites to provide 3D-style shading on the watch's limited palette. The user requested this cartoon form instead of an anatomical heart. It is not a real-time 3D mesh, an ECG, or a visualization of individually measured beats.
+
+## The cat sprite
+
+Since 2026-10-02 the pulse sprite is the Oracle Voice app icon (a Siamese cat in a glowing orb),
+cut out by [`tools/make_cat_assets.py`](tools/make_cat_assets.py) into `resources/drawables/oracle_cat.png`
+(1254 x 1254, the same canvas as the old heart so the six scale percentages in `drawables.xml` keep the
+on-watch size at about 92 px) and a 40 x 40 `launcher_icon.png`. To go back to the cartoon heart,
+point the six `Heart0`–`Heart5` bitmaps in `drawables.xml` at `cartoon_heart.png` again; that file is
+kept in the repo.
+
+```sh
+uv run --with pillow python watch/tools/make_cat_assets.py <path to the Oracle Voice AppIcon.png>
+```
 
 ## Clock and controls
 
@@ -23,6 +36,24 @@ Foreground battery cost has not been measured. No all-day battery-life claim is 
 Open link details, then press **START** to send the fixed string `pulse-link-watch-test` to the registered phone app. This manual transport probe contains no heart rate, nonce, identifier, or other user data, and it is never sent automatically. The same single-flight guard used by pulse responses prevents the test from sending while another transmission is active.
 
 The details screen reports `Link test sending`, followed by `Link test sent` or `Link test failed`. `Phone RX` is a monotonic count of phone-message callback invocations, including malformed messages and messages skipped while a transmission is active.
+
+## Claude status (page 2)
+
+The phone app can push a display-only status message; the watch shows its `text` as a green line
+under the cat, and **DOWN** opens page 2 with the full status (UP still opens link details):
+
+```text
+{ "v": 1, "type": "status", "text": "pulse Opus 5.5 ctx 61%", "title": "Claude", "ctx": 61,
+  "lines": ["pulse", "Opus 5.5", "608k / 1000k  rb", "ba2d0b1a  14:26"] }
+```
+
+- `text` is required (cut to 30 characters); `title` (12), `ctx` (0-100, draws the bar: green
+  below 50, orange below 80, red above) and up to 4 `lines` (22 characters each) are optional.
+- A status is never answered, stored or forwarded; it is shown for 10 minutes after it arrives.
+- [`tools/claude_status.py`](tools/claude_status.py) builds this message from the newest Claude Code
+  transcript of a project (last turn's token usage and model).
+- Simulator: **Settings > Connection Type > BLE before the app starts**, then **Simulation > Phone
+  App Message** with the JSON above. With BLE switched on later, no message reaches the app.
 
 ## Phone protocol
 
