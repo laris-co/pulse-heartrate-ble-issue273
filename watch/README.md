@@ -37,6 +37,24 @@ Open link details, then press **START** to send the fixed string `pulse-link-wat
 
 The details screen reports `Link test sending`, followed by `Link test sent` or `Link test failed`. `Phone RX` is a monotonic count of phone-message callback invocations, including malformed messages and messages skipped while a transmission is active.
 
+## Claude status (page 2)
+
+The phone app can push a display-only status message; the watch shows its `text` as a green line
+under the cat, and **DOWN** opens page 2 with the full status (UP still opens link details):
+
+```text
+{ "v": 1, "type": "status", "text": "pulse Opus 5.5 ctx 61%", "title": "Claude", "ctx": 61,
+  "lines": ["pulse", "Opus 5.5", "608k / 1000k  rb", "ba2d0b1a  14:26"] }
+```
+
+- `text` is required (cut to 30 characters); `title` (12), `ctx` (0-100, draws the bar: green
+  below 50, orange below 80, red above) and up to 4 `lines` (22 characters each) are optional.
+- A status is never answered, stored or forwarded; it is shown for 10 minutes after it arrives.
+- [`tools/claude_status.py`](tools/claude_status.py) builds this message from the newest Claude Code
+  transcript of a project (last turn's token usage and model).
+- Simulator: **Settings > Connection Type > BLE before the app starts**, then **Simulation > Phone
+  App Message** with the JSON above. With BLE switched on later, no message reaches the app.
+
 ## Phone protocol
 
 The app registers for phone-app messages while it is running. Apart from the explicit manual link test, it sends nothing unless it receives a valid request:

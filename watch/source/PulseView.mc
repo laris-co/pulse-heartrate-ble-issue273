@@ -11,6 +11,7 @@ class PulseView extends WatchUi.View {
     private var _animationTimer;
     private var _hearts as Lang.Array;
     private var _showDetails = false;
+    private var _showClaude = false;
     private var _motionPaused = false;
     private var _visible = false;
     private var _phase = 0.0;
@@ -66,11 +67,26 @@ class PulseView extends WatchUi.View {
         return _showDetails;
     }
 
+    // Page 2: the Claude status page.
+    function toggleClaude() {
+        _showClaude = !_showClaude;
+        _phaseAt = null;
+        WatchUi.requestUpdate();
+    }
+
+    function isShowingClaude() as Lang.Boolean {
+        return _showClaude;
+    }
+
     function onUpdate(dc) {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
         if (_showDetails) {
             drawDetails(dc);
+            return;
+        }
+        if (_showClaude) {
+            drawClaude(dc);
             return;
         }
         drawClock(dc);
@@ -118,11 +134,71 @@ class PulseView extends WatchUi.View {
         }
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(centerX, 193, Graphics.FONT_TINY, footer, Graphics.TEXT_JUSTIFY_CENTER);
+        // A fresh status line from the phone app replaces the button hint (green);
+        // otherwise the hint stays (blue).
+        var phoneStatus = _controller.getPhoneStatus();
+        if (phoneStatus != null && !_motionPaused) {
+            dc.setColor(0xAAFFAA, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(centerX, 213, Graphics.FONT_XTINY, phoneStatus, Graphics.TEXT_JUSTIFY_CENTER);
+        } else {
+            dc.setColor(0xAAAAFF, Graphics.COLOR_TRANSPARENT);
+            var actionHint = _motionPaused ? "START: resume" :
+                (_controller.hasRecentPhoneRequest() ? "Phone link active" : "UP: link  DOWN: Claude");
+            dc.drawText(centerX, 213, Graphics.FONT_XTINY,
+                actionHint, Graphics.TEXT_JUSTIFY_CENTER);
+        }
+    }
+
+    // Page 2. Everything shown here came from the phone in one status message; the watch adds
+    // only the bar and how long ago the message arrived.
+    private function drawClaude(dc) {
+        var centerX = dc.getWidth() / 2;
+        var page = _controller.getPhoneStatusPage() as Lang.Dictionary or Null;
+        dc.setColor(0xFF8844, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, 18, Graphics.FONT_TINY, page == null ? "Claude" : page["title"] as Lang.String,
+            Graphics.TEXT_JUSTIFY_CENTER);
+        if (page == null) {
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(centerX, 90, Graphics.FONT_SMALL, "No status yet", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.setColor(0xAAAAFF, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(centerX, 130, Graphics.FONT_XTINY, "The phone app pushes it", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(centerX, 196, Graphics.FONT_XTINY, "BACK: clock", Graphics.TEXT_JUSTIFY_CENTER);
+            return;
+        }
+        var lines = page["lines"] as Lang.Array<Lang.String>;
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, 42, Graphics.FONT_SMALL, lines[0], Graphics.TEXT_JUSTIFY_CENTER);
+        if (lines.size() > 1) {
+            dc.setColor(0xFFAAAA, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(centerX, 74, Graphics.FONT_TINY, lines[1], Graphics.TEXT_JUSTIFY_CENTER);
+        }
+        var ctx = page["ctx"] as Lang.Number or Null;
+        if (ctx != null) {
+            var barX = 40;
+            var barW = 160;
+            var fill = 0x55FF55;
+            if (ctx >= 80) {
+                fill = 0xFF5555;
+            } else if (ctx >= 50) {
+                fill = 0xFFAA00;
+            }
+            dc.setColor(0x555555, Graphics.COLOR_TRANSPARENT);
+            dc.drawRectangle(barX, 106, barW, 12);
+            dc.setColor(fill, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(barX + 1, 107, (barW - 2) * ctx / 100, 10);
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(centerX, 120, Graphics.FONT_TINY, "ctx " + ctx.format("%d") + "%",
+                Graphics.TEXT_JUSTIFY_CENTER);
+        }
         dc.setColor(0xAAAAFF, Graphics.COLOR_TRANSPARENT);
-        var actionHint = _motionPaused ? "START: resume" :
-            (_controller.hasRecentPhoneRequest() ? "Phone link active" : "UP: link details");
-        dc.drawText(centerX, 213, Graphics.FONT_XTINY,
-            actionHint, Graphics.TEXT_JUSTIFY_CENTER);
+        for (var i = 2; i < lines.size(); i += 1) {
+            dc.drawText(centerX, 148 + (i - 2) * 18, Graphics.FONT_XTINY, lines[i], Graphics.TEXT_JUSTIFY_CENTER);
+        }
+        var age = _controller.getPhoneStatusAgeSeconds();
+        dc.setColor(0x888888, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, 196, Graphics.FONT_XTINY,
+            age < 60 ? "updated just now" : "updated " + (age / 60).format("%d") + " min ago",
+            Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     private function drawDetails(dc) {

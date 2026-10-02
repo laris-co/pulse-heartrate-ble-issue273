@@ -41,6 +41,11 @@ class PulseController {
     private var _phoneCallbackCount = 0;
     private var _lastPhoneRequestAt = null;
     private var _status = "Starting";
+    // Last status line pushed by the phone app, and when it arrived (System.getTimer ms).
+    const STATUS_FRESH_MS = 600000;
+    private var _phoneStatus = null;
+    private var _phoneStatusPage = null;
+    private var _phoneStatusAt = null;
     private var _listener;
     private var _displayTimer;
 
@@ -78,6 +83,9 @@ class PulseController {
         _transmitBusy = false;
         _transmitKind = TRANSMIT_NONE;
         _lastPhoneRequestAt = null;
+        _phoneStatus = null;
+        _phoneStatusPage = null;
+        _phoneStatusAt = null;
         _status = "Stopped";
     }
 
@@ -103,7 +111,22 @@ class PulseController {
         _phoneCallbackCount += 1;
         requestDisplayUpdate();
 
-        if (!_active || _transmitBusy || message == null) {
+        if (!_active || message == null) {
+            return;
+        }
+
+        // A status line is display-only: accept it even while a pulse reply is in flight.
+        var statusText = parseStatusMessage(message.data);
+        if (statusText != null) {
+            _phoneStatus = statusText;
+            _phoneStatusPage = parseStatusPage(message.data);
+            _phoneStatusAt = System.getTimer();
+            _status = "Status received";
+            requestDisplayUpdate();
+            return;
+        }
+
+        if (_transmitBusy) {
             return;
         }
 
@@ -183,6 +206,32 @@ class PulseController {
 
     function getStatus() {
         return _status;
+    }
+
+    // The pushed status line while it is fresh (10 minutes), otherwise null.
+    function getPhoneStatus() {
+        if (!_active || _phoneStatus == null || _phoneStatusAt == null) {
+            return null;
+        }
+        var age = System.getTimer() - _phoneStatusAt;
+        if (age < 0 || age > STATUS_FRESH_MS) {
+            return null;
+        }
+        return _phoneStatus;
+    }
+
+    // The full status page (page 2) while fresh, otherwise null.
+    function getPhoneStatusPage() {
+        return getPhoneStatus() == null ? null : _phoneStatusPage;
+    }
+
+    // Seconds since the last status arrived, or -1 when none has.
+    function getPhoneStatusAgeSeconds() as Lang.Number {
+        if (_phoneStatusAt == null) {
+            return -1;
+        }
+        var age = System.getTimer() - _phoneStatusAt;
+        return age < 0 ? -1 : age / 1000;
     }
 
     function getPhoneCallbackCount() as Lang.Number {
