@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<iq:manifest xmlns:iq="http://www.garmin.com/xml/connectiq" version="3">
+    <iq:application
+        entry="PulseLinkApp"
+        id="32f2d775123041a7ac0c38e3a3f4551b"
+        launcherIcon="@Drawables.LauncherIcon"
+        minSdkVersion="3.1.0"
+        name="@Strings.AppName"
+        type="watch-app"
+        version="1.0.0">
+        <iq:products>
+            <iq:product id="fr245m"/>
+        </iq:products>
+        <iq:permissions>
+            <iq:uses-permission id="Communications"/>
+            <iq:uses-permission id="Sensor"/>
+        </iq:permissions>
+        <iq:languages>
+            <iq:language>eng</iq:language>
+        </iq:languages>
+        <iq:barrels/>
+    </iq:application>
+</iq:manifest>
